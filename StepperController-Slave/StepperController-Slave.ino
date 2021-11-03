@@ -18,9 +18,9 @@ void setup() {
   pinMode(X_STOP_MIN, INPUT_PULLUP);
   pinMode(X_STOP_MAX, INPUT_PULLUP);
 
-  X.home(X_STOP_MIN);
-  delay(1000);
-  Serial.println("Ready!");
+//  X.home(X_STOP_MIN);
+//  delay(1000);
+//  Serial.println("Ready!");
 
   angle = 0;
 }
@@ -32,6 +32,7 @@ void loop() {
     
     Serial.print("Rotate to ");
     Serial.println(angle);
+//    Serial.println(Serial.read());
   }  
 
   X.rotateTo(angle);
