@@ -8,10 +8,6 @@ Stepper X;
 long steps;
 int interval;
 
-float pos;
-float vel;
-
-
 
 void setup() {
   Serial.begin(250000);
@@ -28,9 +24,6 @@ void setup() {
 
   steps = 0;
   interval = 100;
-
-  pos = 0.0;
-  vel = 0.0;
 }
 
 
