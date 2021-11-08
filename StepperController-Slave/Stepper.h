@@ -86,5 +86,9 @@ class Stepper {
 
       return isRunning;
     }
+
+    boolean getState() {
+      return isRunning;
+    }
     
 };

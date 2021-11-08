@@ -36,26 +36,26 @@ void setup() {
 
 void loop() {  
   if (Serial.available()) {
-    String str = Serial.readStringUntil('\n');
-//    Serial.println(str);
+    String data = Serial.readStringUntil('\n');
+//    Serial.println(data);
 
-    char buf[str.length()+1];
-    str.toCharArray(buf, str.length()+1);
-    
-    Serial.println(buf);
-
-    float posString;
-    float velString;
-    
-    sscanf(buf, "S%d I%d", 
-           &steps, &interval);
-
-    Serial.print("Target Steps : ");
-    Serial.println(steps);
-    Serial.print("Pulse Interval : ");
-    Serial.println(interval);
+    getValues(data);
   }  
 
   X.rotate(steps, interval);
   
+  if (X.getState()) Serial.write(1);
+  else  Serial.write(0);
+}
+
+
+void getValues(String str) {
+  int indexOfSeperator = str.indexOf(' ');
+  if (indexOfSeperator == -1) return;
+
+  if (str.charAt(0) != 'S') return;
+  if (str.charAt(indexOfSeperator+1) != 'I')  return;
+
+  steps = str.substring(1, indexOfSeperator).toInt();
+  interval = str.substring(indexOfSeperator+2).toInt();
 }
