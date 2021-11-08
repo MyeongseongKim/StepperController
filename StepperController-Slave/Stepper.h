@@ -37,7 +37,6 @@ class Stepper {
 
       curMicros = 0;
       prevMicros = 0;
-      interval = 100;
 
       curSteps = 0;
       targetSteps = 0;
@@ -45,6 +44,7 @@ class Stepper {
     }
 
     void home(int endstop) {
+      interval = 100;
       while (digitalRead(endstop) == HIGH) {
         digitalWrite(STEP_PIN, HIGH);
         digitalWrite(STEP_PIN, LOW);
@@ -53,8 +53,14 @@ class Stepper {
       curSteps = 0;
     }
 
-    boolean rotateTo(float angle) {
-      targetSteps = angle * STEPS_PER_REVOLUTION * MICROSTEPS / 360;
+    boolean rotate(long steps, int pulseInterval) {
+//      targetSteps = angle * STEPS_PER_REVOLUTION * MICROSTEPS / 360;
+//      float stepsPerSecond = angularVelocity * STEPS_PER_REVOLUTION * MICROSTEPS / 360;
+//      interval = 1.0 / stepsPerSecond;
+      
+      long targetSteps = steps;
+      int interval = pulseInterval;
+      
       long delta = targetSteps - curSteps;
 
       if (delta == 0) {
