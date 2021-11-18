@@ -11,6 +11,7 @@ int interval;
 
 void setup() {
   Serial.begin(250000);
+  Serial.setTimeout(10);
 
   X = Stepper(X_DIR, X_STEP, X_ENABLE);
   X.begin(200, 16);
@@ -33,12 +34,15 @@ void loop() {
 //    Serial.println(data);
 
     getValues(data);
+    
+    Serial.print("Rotate ");
+    Serial.print(steps);
+    Serial.println(" steps.");
+    Serial.print("Pulse interval : ");
+    Serial.println(interval);
   }  
 
   X.rotate(steps, interval);
-  
-  if (X.getState()) Serial.write(1);
-  else  Serial.write(0);
 }
 
 
